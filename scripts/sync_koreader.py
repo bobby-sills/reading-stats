@@ -57,18 +57,25 @@ cursor.execute("""
 
 books = cursor.fetchall()
 
+# List of books to track
+books_to_track = ["Middlemarch"]
+
+# Filter for specific books
+filtered_books = [
+    {
+        "id": row[0],
+        "title": row[1],
+        "authors": row[2],
+        "percentage_completed": row[3]
+    }
+    for row in books
+    if row[1] in books_to_track
+]
+
 # Process and create JSON output
 reading_data = {
     "updated_at": datetime.now().isoformat(),
-    "books": [
-        {
-            "id": row[0],
-            "title": row[1],
-            "authors": row[2],
-            "percentage_completed": row[3]
-        }
-        for row in books
-    ]
+    "books": filtered_books
 }
 
 # Create data directory if it doesn't exist
