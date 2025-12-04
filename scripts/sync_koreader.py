@@ -9,7 +9,7 @@ import io
 
 # Get credentials from environment
 credentials_json = os.environ['GOOGLE_CREDENTIALS']
-file_id = os.environ['KOREADER_FILE_ID']
+file_id = os.environ['FILE_ID']
 
 # Parse credentials
 credentials_info = json.loads(credentials_json)
