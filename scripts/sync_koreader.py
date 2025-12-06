@@ -82,7 +82,7 @@ reading_data = {
 os.makedirs('data', exist_ok=True)
 
 # Write JSON file
-with open('data/reading-progress.json', 'w') as f:
+with open('data/koreader-data.json', 'w') as f:
     json.dump(reading_data, f, indent=2)
 
 conn.close()

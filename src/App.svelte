@@ -1,47 +1,36 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  import ProgressBar from "./lib/ProgressBar.svelte";
+  import koreaderData from "../data/koreader-data.json";
+
+  interface Book {
+    id: number;
+    title: string;
+    authors: string;
+    percentage_completed: number;
+  }
+
+  const books: Book[] = koreaderData.books;
 </script>
 
+<svelte:head>
+  <title>reading stats</title>
+</svelte:head>
+
 <main>
-  <div>
-    <a href="https://vite.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
+  <h1>reading stats</h1>
 
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+  <h2>currently reading</h2>
+  {#each books as book (book.id)}
+    <ProgressBar
+      title={book.title}
+      author={book.authors}
+      percent={book.percentage_completed.toString()}
+      totalPages="1000"
+    />
+  {/each}
+  <h2>completed</h2>
+  <h2>want to read</h2>
 </main>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
 </style>
