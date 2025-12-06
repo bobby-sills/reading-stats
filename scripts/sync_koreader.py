@@ -41,10 +41,10 @@ cursor = conn.cursor()
 # Query reading progress for each book (latest reading session)
 cursor.execute("""
     SELECT
-        d.id_book,
         b.title,
         b.authors,
-        ROUND((CAST(d.page AS FLOAT) / d.total_pages) * 100, 2) AS percentage_completed
+        ROUND((CAST(d.page AS FLOAT) / d.total_pages) * 100, 2) AS percentage_completed,
+        d.start_time
     FROM page_stat_data d
     JOIN book b ON b.id = d.id_book
     WHERE d.start_time = (
@@ -61,16 +61,20 @@ books = cursor.fetchall()
 books_to_track = ["Middlemarch"]
 
 # Filter for specific books
-filtered_books = [
-    {
-        "id": row[0],
-        "title": row[1],
-        "authors": row[2],
-        "percentage_completed": row[3]
-    }
-    for row in books
-    if row[1] in books_to_track
-]
+filtered_books = []
+for row in books:
+    if row[0] in books_to_track:
+        book_data = {
+            "title": row[0],
+            "authors": row[1],
+            "percentage_completed": row[2]
+        }
+        # Add date_completed if book is at 100%
+        if row[2] >= 100.0:
+            # Format timestamp to match manual-data.json format (e.g., "11 Oct 2025")
+            date_obj = datetime.fromtimestamp(row[3])
+            book_data["date_completed"] = date_obj.strftime("%d %b %Y")
+        filtered_books.append(book_data)
 
 # Process and create JSON output
 reading_data = {

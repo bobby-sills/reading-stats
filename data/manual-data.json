@@ -1,0 +1,20 @@
+{
+  "currently_reading": [
+    {
+      "title": "Purple Hibiscus",
+      "authors": "Chimamanda Ngozi Adichie",
+      "pages_read": 0,
+      "total_pages": 653
+    }
+  ],
+  "completed": [
+    {
+      "title": "Purple Hibiscus",
+      "authors": "Chimamanda Ngozi Adichie",
+      "date_completed": "11 Oct 2025"
+    }
+  ],
+  "page_counts": {
+    "Middlemarch": 713
+  }
+}

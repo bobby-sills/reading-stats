@@ -2,7 +2,6 @@
   "updated_at": "2025-12-04T04:36:17.752674",
   "books": [
     {
-      "id": 6,
       "title": "Middlemarch",
       "authors": "George Eliot",
       "percentage_completed": 82.37
